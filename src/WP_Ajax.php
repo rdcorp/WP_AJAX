@@ -33,7 +33,7 @@ Abstract Class WP_AJAX
 	{ 	
 		$class = Self::getClassName();
 		$action = new $class;
-		$action->run();
+		return $action->run();
 		die();
 	}
 
@@ -52,6 +52,11 @@ Abstract Class WP_AJAX
 	// -----------------------------------------------------
 	// UTILITY METHODS
 	// -----------------------------------------------------
+	public static function getActionName()
+    {
+        return self::action();
+    }
+    
 	public static function getClassName()
 	{
 		return get_called_class();
@@ -76,6 +81,11 @@ Abstract Class WP_AJAX
 	// -----------------------------------------------------
 	// JSONResponse
 	// -----------------------------------------------------	
+	
+	public function JSONResponse($data){
+	    $this->returnJSON($data);
+	}
+	
 	public function returnBack(){
 		if(isset($_SERVER['HTTP_REFERER'])){
 			header('Location: '. $_SERVER['HTTP_REFERER']);	
